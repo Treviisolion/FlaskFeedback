@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block flashes %}
+
+{% with messages = get_flashed_messages() %}
+
+{% if messages %}
+
+{% for message in messages %}
+
+<div class="alert alert-danger" role="alert">{{message}}</div>
+
+{% endfor %}
+
+{% endif %}
+
+{% endwith %}
+
+{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-md-center">
+    <h1>Sign Up</h1>
+</div>
+<div class="row">
+    <div class="col-xl">
+        <form id="register-user" method="POST">
+            {{form.hidden_tag()}}
+
+            {% for field in form
+            if field.widget.input_type != 'hidden' %}
+
+            <div class="form-group">
+                {{field.label}}
+                {{field(class="form-control", rows="10")}}
+
+                {% for error in field.errors %}
+                <div class="alert alert-danger mt-1">
+                    {{error}}
+                </div>
+                {% endfor %}
+            </div>
+
+            {% endfor %}
+
+            <a href="/" class="btn btn-warning">Cancel</a>
+            <a href="/login" class="btn btn-info">Login</a>
+            <input type="submit" value="Sign Up" class="btn btn-primary">
+        </form>
+    </div>
+</div>
+
+{% endblock %}
